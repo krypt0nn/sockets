@@ -5,7 +5,7 @@
 ## Установка
 
 ```
-composer require observer/sockets
+composer require krypt0nn/sockets
 ```
 
 ## Пример работы
@@ -15,7 +15,7 @@ composer require observer/sockets
 ```php
 <?php
 
-use Observer\Sockets\SocketClient as Client;
+use Sockets\SocketClient as Client;
 
 $client = new Client;
 $client->connect ('127.0.0.1', 53874);
@@ -29,7 +29,7 @@ while (true)
 ```php
 <?php
 
-use Observer\Sockets\SocketListener as Listener;
+use Sockets\SocketListener as Listener;
 
 $listener = new Listener (53874);
 

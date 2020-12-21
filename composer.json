@@ -1,5 +1,5 @@
 {
-    "name": "observer/sockets",
+    "name": "krypt0nn/sockets",
     "description": "Simple sockets implementation library on PHP",
     "keywords": ["sockets"],
     "version": "0.1.0",
@@ -19,7 +19,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Observer\\Sockets\\": "src"
+            "Sockets\\": "src"
         }
     }
 }
