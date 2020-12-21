@@ -1,6 +1,6 @@
 <?php
 
-namespace Sockets;
+namespace Observer\Sockets;
 
 /**
  * Объект реализации "асинхронного" вызова анонимной функции

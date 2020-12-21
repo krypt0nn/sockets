@@ -1,0 +1,25 @@
+{
+    "name": "observer/sockets",
+    "description": "Simple sockets implementation library on PHP",
+    "keywords": ["sockets"],
+    "version": "0.1.0",
+    "homepage": "https://github.com/KRypt0nn/sockets",
+    "license": "GPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Nikita Podvirnyy",
+            "email": "suimin.tu.mu.ga.mi@gmail.com",
+            "homepage": "https://github.com/KRypt0nn",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=7.4",
+        "ext-sockets": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Observer\\Sockets\\": "src"
+        }
+    }
+}

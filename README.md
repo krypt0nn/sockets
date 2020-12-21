@@ -2,6 +2,12 @@
 
 **sockets** - небольшая библиотека для работы с сокетами на PHP 7.4+
 
+## Установка
+
+```
+composer require observer/sockets
+```
+
 ## Пример работы
 
 Клиент:
@@ -9,7 +15,7 @@
 ```php
 <?php
 
-use Sockets\SocketClient as Client;
+use Observer\Sockets\SocketClient as Client;
 
 $client = new Client;
 $client->connect ('127.0.0.1', 53874);
@@ -23,7 +29,7 @@ while (true)
 ```php
 <?php
 
-use Sockets\SocketListener as Listener;
+use Observer\Sockets\SocketListener as Listener;
 
 $listener = new Listener (53874);
 

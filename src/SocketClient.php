@@ -1,6 +1,6 @@
 <?php
 
-namespace Sockets;
+namespace Observer\Sockets;
 
 /**
  * Объект реализации клиента сокета
