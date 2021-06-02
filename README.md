@@ -52,7 +52,17 @@ echo 'Client connected'. PHP_EOL;
 
 while (true)
 {
-    foreach ($client->read () as $message)
+    try
+    {
+        $messages = @$client->read ();
+    }
+
+    catch (\Exception $e)
+    {
+        continue;
+    }
+    
+    foreach ($messages as $message)
         echo '> '. $message . PHP_EOL;
 
     sleep (1);
