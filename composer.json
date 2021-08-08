@@ -1,8 +1,8 @@
 {
     "name": "krypt0nn/sockets",
-    "description": "Simple sockets implementation library on PHP",
+    "description": "Simple sockets implementation",
     "keywords": ["sockets"],
-    "version": "0.1.0",
+    "version": "0.1.1",
     "homepage": "https://github.com/KRypt0nn/sockets",
     "license": "GPL-3.0-or-later",
     "authors": [
