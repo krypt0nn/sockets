@@ -5,9 +5,9 @@ namespace Sockets;
 /**
  * Объект реализации клиента сокета
  */
-class SocketClient
+class Client
 {
-    protected $socket; // Русурс сокета
+    protected $socket; // Ресурс сокета
     protected string $offset = ''; // Хранилище части полученных сокетов данных (см. метод read)
 
     /**
@@ -24,19 +24,19 @@ class SocketClient
             socket_create ($domain, $type, $protocol) : $socket;
 
         if ($this->socket === false)
-            throw new \Exception ('Socket creating error: '. socket_strerror (socket_last_error ()) . var_dump ($this->socket));
+            throw new \Exception ('Socket creation error: '. socket_strerror (socket_last_error ()));
     }
 
     /**
-     * Создание объекта SocketClient из ресурса сокета
+     * Создание объекта Client из ресурса сокета
      * 
      * @param mixed $socket - ресурс сокета
      * 
-     * @return SocketClient
+     * @return Client
      */
     public static function fromResource ($socket): self
     {
-        return new SocketClient (AF_INET, SOCK_STREAM, SOL_TCP, $socket);
+        return new self (AF_INET, SOCK_STREAM, SOL_TCP, $socket);
     }
 
     /**
@@ -45,14 +45,14 @@ class SocketClient
      * @param string $address - адрес подключения (127.0.0.1)
      * [@param int $port = 0] - порт подключения
      * 
-     * @return SocketClient
+     * @return Client
      * 
      * @throws \Exception - выбрасывает исключение при ошибке подключения к сокету
      */
     public function connect (string $address, int $port = 0): self
     {
         if (socket_connect ($this->socket, $address, $port) === false)
-            throw new \Exception ('Socket connecting error: '. socket_strerror (socket_last_error ()));
+            throw new \Exception ('Socket connection error: '. socket_strerror (socket_last_error ()));
 
         return $this;
     }
@@ -62,7 +62,7 @@ class SocketClient
      * 
      * @param string $message - сообщение для отправки
      * 
-     * @return SocketClient
+     * @return Client
      * 
      * @throws \Exception - выбрасывает исключение при ошибке отправки сообщения
      */

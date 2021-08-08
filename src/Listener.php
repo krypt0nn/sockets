@@ -12,7 +12,7 @@ namespace Sockets;
 final class AsyncObject
 {
     # Хранилище коллбэка
-    protected $callback = [];
+    protected $callback;
 
     /**
      * @param mixed $data - какие-либо данные, которые будут переданы в коллбэк при вызове
@@ -20,8 +20,7 @@ final class AsyncObject
      */
     public function __construct (protected $data, callable $callback)
     {
-        // Один из способов хранить анонимные функции в свойствах объекта. Костыль, но иначе никак
-        $this->callback = [$callback];
+        $this->callback = $callback;
     }
 
     /**
@@ -31,14 +30,14 @@ final class AsyncObject
      */
     public function call (...$args)
     {
-        return $this->callback[0]($this->data, ...$args);
+        return call_user_func ($this->callback, $this->data, ...$args);
     }
 }
 
 /**
  * Объект реализации получения соединения со сторонним сокетом
  */
-class SocketListener
+class Listener
 {
     // Ресурс socket listener'а
     protected $socket;
@@ -54,7 +53,7 @@ class SocketListener
         $this->socket = socket_create_listen ($port);
 
         if ($this->socket === false)
-            throw new \Exception ('Socket creating error: '. socket_strerror (socket_last_error ()));
+            throw new \Exception ('Socket creation error: '. socket_strerror (socket_last_error ()));
 
         // Переводим сокет в non-blocking режим чтобы socket_accept работал сразу, а не ждал соединения
         socket_set_nonblock ($this->socket);
@@ -63,14 +62,14 @@ class SocketListener
     /**
      * Приём входящего соединения если оно присутствует
      * 
-     * @return SocketClient|null - возвращает клиент сокета либо null, если его нет
+     * @return Client|null - возвращает клиент сокета либо null, если его нет
      */
-    public function accept (): ?SocketClient
+    public function accept (): ?Client
     {
         $client = socket_accept ($this->socket);
 
         return $client === false ? null :
-            SocketClient::fromResource ($client);
+            Client::fromResource ($client);
     }
 
     /**
@@ -94,14 +93,14 @@ class SocketListener
      */
     public function acceptAsync (): AsyncObject
     {
-        return new AsyncObject ($this->socket, function ($socket, callable $stuff = null): ?SocketClient
+        return new AsyncObject ($this->socket, function ($socket, callable $stuff = null): ?Client
         {
             while (($client = socket_accept ($socket)) === false)
                 if (is_callable ($stuff) && $stuff ($socket) === false)
                     break;
 
             return $client === false ? null :
-                SocketClient::fromResource ($client);
+                Client::fromResource ($client);
         });
     }
 }

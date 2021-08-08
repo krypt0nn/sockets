@@ -15,7 +15,9 @@ composer require krypt0nn/sockets
 ```php
 <?php
 
-use Sockets\SocketClient as Client;
+require 'vendor/autoload.php';
+
+use Sockets\Client;
 
 $client = new Client;
 $client->connect ('127.0.0.1', 53874);
@@ -29,7 +31,9 @@ while (true)
 ```php
 <?php
 
-use Sockets\SocketListener as Listener;
+require 'vendor/autoload.php';
+
+use Sockets\Listener;
 
 $listener = new Listener (53874);
 
@@ -69,4 +73,4 @@ while (true)
 }
 ```
 
-Автор: [Подвирный Никита](https://vk.com/technomindlp). Специально для [Enfesto Studio Group](https://vk.com/hphp_convertation)
+Автор: [Подвирный Никита](https://vk.com/technomindlp)
